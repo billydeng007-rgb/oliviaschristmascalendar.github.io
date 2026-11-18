@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#eef6f8">
+<title>给Olivia的专属圣诞日历</title>
+<style>
+:root{color-scheme:light;--ink:#253a47;--muted:#70828b;--silver:#bccbd0;--blue:#dcebf0;--green:#577568;--gold:#ad8e57;--white:#fff}
+*{box-sizing:border-box}body{margin:0;color:var(--ink);font-family:ui-serif,"Songti SC","Noto Serif CJK SC",serif;background-color:#edf4f5;background-image:radial-gradient(ellipse at 12% 16%,#fff 0 2px,transparent 3px),radial-gradient(ellipse at 86% 28%,#fff 0 1.5px,transparent 3px),radial-gradient(ellipse at 74% 82%,#d5e4e8 0 2px,transparent 3px);background-size:170px 150px,220px 190px,250px 210px;min-height:100vh;padding:30px 16px 42px}
+.page{max-width:1050px;margin:auto;background:rgba(255,255,255,.87);border:1px solid #d4e0e3;box-shadow:0 18px 55px #506c7819,0 2px 8px #506c7811;position:relative;overflow:hidden}.page:before{content:"";position:absolute;inset:8px;border:1px solid #dbe5e7;pointer-events:none}.masthead{text-align:center;padding:38px 32px 23px;position:relative}.eyebrow{font:600 11px/1.4 system-ui,sans-serif;letter-spacing:2px;color:#758d98;text-transform:uppercase}.stars{color:#9baeb5;letter-spacing:10px;font-size:13px;margin-bottom:10px}.title{font-size:clamp(28px,4vw,44px);font-weight:500;margin:7px 0 8px;line-height:1.25}.name{color:#7896a2}.welcome{margin:0 auto;color:#637780;font:14px/1.9 system-ui,sans-serif;max-width:560px}.countdown{display:inline-flex;align-items:center;gap:8px;margin-top:16px;padding:7px 13px;border-top:1px solid #d5e1e4;border-bottom:1px solid #d5e1e4;color:#55717c;font:12px system-ui,sans-serif}.countdown strong{font-size:15px;color:#587b89}.decor{position:absolute;top:55px;color:#a8bbc2;font-size:28px}.decor.left{left:7%}.decor.right{right:7%}.divider{height:1px;margin:0 38px;background:linear-gradient(90deg,transparent,#c7d6da 18%,#d7e2e5 82%,transparent)}
+.journey{text-align:center;padding:22px 20px 12px}.route{display:flex;justify-content:center;align-items:center;gap:10px;color:#7b8e95;font:11px/1.6 system-ui,sans-serif;letter-spacing:1px;flex-wrap:wrap}.route b{font-weight:500;color:#536e79}.route i{width:24px;height:1px;background:#c4d2d6}.hint{margin:10px 0 0;color:#73858d;font:12px/1.7 system-ui,sans-serif}.calendar{padding:15px 42px 36px;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:12px}.day{appearance:none;border:1px solid #c5d2d6;border-radius:3px;aspect-ratio:1/1.04;min-width:0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:linear-gradient(145deg,#fff,#f2f7f8 60%,#e7eff1);box-shadow:inset 0 0 0 2px #fff,0 3px 8px #526d7810;color:#516a74;cursor:pointer;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;font:inherit}.day:before,.day:after{content:"";position:absolute;background:#dce6e8}.day:before{width:1px;top:0;bottom:0;left:50%}.day:after{height:1px;left:0;right:0;top:50%}.day:hover:not(:disabled),.day:focus-visible{transform:translateY(-3px);border-color:#91adb7;box-shadow:inset 0 0 0 2px #fff,0 7px 13px #526d7824;outline:2px solid #789aa6;outline-offset:2px;z-index:1}.day:active:not(:disabled){transform:translateY(0) scale(.98)}.day .number,.day .mini{position:relative;z-index:1}.number{font:500 20px/1 system-ui,sans-serif;color:#4d6975}.mini{font-size:11px;color:#82959c}.day.locked{cursor:not-allowed;background:linear-gradient(145deg,#f4f6f6,#e9eff0);color:#9ba9ad;border-color:#d1dcdf}.day.locked .number{color:#91a1a6}.day.locked .mini{font-size:10px}.day.opened{background:linear-gradient(145deg,#fff,#edf6f7 64%,#e7f1ec);border-color:#aec7c4}.day.opened .mini{color:#64857b}.day.special{background:linear-gradient(145deg,#fff,#f7f3e9 70%,#e9f0f1);border-color:#cfbd93}.day.special .number{color:#947a4c}.day.special .mini{color:#927c52}
+.footer{text-align:center;color:#7b8d94;font:11px/1.8 system-ui,sans-serif;padding:0 20px 24px}.footer span{color:#a8874d}.foot-star{color:#92aab2;margin:0 6px}
+.veil{position:fixed;inset:0;background:#233b4770;display:grid;place-items:center;padding:18px;z-index:4;opacity:0;visibility:hidden;transition:opacity .2s ease,visibility .2s ease}.veil.show{opacity:1;visibility:visible}.dialog{position:relative;width:min(460px,100%);background:linear-gradient(160deg,#fff,#f6fafb 72%,#edf4f2);border:1px solid #cad9dc;box-shadow:0 22px 70px #20384340;padding:34px 32px 30px;text-align:center;transform:translateY(10px) scale(.985);transition:transform .24s ease}.veil.show .dialog{transform:none}.dialog:before{content:"";position:absolute;inset:8px;border:1px solid #e0e9eb;pointer-events:none}.close{position:absolute;right:17px;top:15px;border:1px solid #d8e3e5;background:#fff;color:#667b83;width:34px;height:34px;font:22px/1 system-ui,sans-serif;cursor:pointer}.close:hover,.close:focus-visible{background:#edf5f6;outline:2px solid #8caab3}.item-icon{font-size:47px;line-height:1.3;margin:6px 0 11px;filter:drop-shadow(0 4px 4px #526d781c)}.stamp{display:inline-block;padding:5px 10px;border:1px solid #bdcfd2;border-radius:2px;color:#617e87;font:11px system-ui,sans-serif;letter-spacing:1px}.dialog h2{font-size:25px;font-weight:500;margin:14px 0 4px}.dialog .date{color:#8a9ba0;font:12px system-ui,sans-serif}.dialog p{font:15px/1.9 system-ui,sans-serif;color:#586d76;margin:17px 0 0}.dialog .blessing{color:#657c74;margin-top:7px}.toast{position:fixed;left:50%;bottom:20px;z-index:5;transform:translate(-50%,15px);opacity:0;pointer-events:none;background:#fff;border:1px solid #d2dfe2;padding:12px 17px;box-shadow:0 7px 24px #304c591a;color:#526a73;font:13px/1.55 system-ui,sans-serif;text-align:center;transition:.2s;max-width:calc(100vw - 36px)}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:700px){body{padding:12px 9px 25px}.page:before{inset:6px}.masthead{padding:31px 17px 20px}.decor{top:38px;font-size:21px}.decor.left{left:6%}.decor.right{right:6%}.divider{margin:0 20px}.journey{padding:17px 12px 8px}.calendar{padding:12px 15px 25px;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}.number{font-size:18px}.day{gap:5px}.day .mini{font-size:10px}.footer{padding-bottom:20px}}
+@media(max-width:370px){.calendar{padding-inline:11px;gap:6px}.day .mini{font-size:9px}.number{font-size:16px}.route{gap:6px}.route i{width:13px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
+</style>
+<style>
+.journey{padding-bottom:4px}.route{display:none}.tree-section{text-align:center;padding:4px 20px 15px}.tree-heading{font:500 15px/1.6 system-ui,sans-serif;color:#607981;margin:2px 0 0}.tree-caption{font:11px/1.7 system-ui,sans-serif;color:#8a9a9f;margin:3px 0 0}.tree-stage{position:relative;width:min(100%,340px);height:315px;margin:0 auto}.tree-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}.tree-star{position:absolute;left:50%;top:0;transform:translateX(-50%);z-index:2;width:46px;height:46px;border:0;background:transparent;color:#9cabb0;font:36px/1 serif;cursor:not-allowed;text-shadow:0 1px 0 white;transition:color .25s,filter .25s,transform .18s}.tree-star.ready{cursor:pointer;color:#c7b77e}.tree-star.ready:hover,.tree-star.ready:focus-visible{transform:translateX(-50%) scale(1.12);outline:2px solid #bfa85f;outline-offset:2px;border-radius:50%}.tree-star.lit{color:#e1bb54;filter:drop-shadow(0 0 9px #edcf70)}.tree-star .star-glyph{display:block}.tree-star.ready:after{content:"12/24";position:absolute;top:37px;left:50%;transform:translateX(-50%);white-space:nowrap;color:#927b48;font:9px/1.2 system-ui,sans-serif;letter-spacing:0}.tree-svg .candle-flame{fill:#d0dbe0;transition:fill .3s,filter .3s}.tree-svg .candle-body{fill:#e3ebed;stroke:#b8c9ce;stroke-width:1;transition:fill .3s,stroke .3s}.tree-svg .candle.lit .candle-flame{fill:#ffd574;filter:drop-shadow(0 0 4px #ffca59)}.tree-svg .candle.lit .candle-body{fill:#fff0ba;stroke:#ddbd69}
+@media(max-width:700px){.journey{padding-bottom:3px}.tree-section{padding:4px 12px 12px}.tree-stage{height:290px;max-width:310px}}
+@media(max-width:370px){.route{gap:6px}.route i{width:13px}}
+</style>
+<style>
+.tree-section{padding:10px 20px 22px}.tree-heading{font-size:17px}.tree-caption{font-size:12px}.tree-stage{width:min(100%,460px);height:490px;margin:4px auto 0}.tree-svg{filter:drop-shadow(0 10px 11px #34584716)}.tree-svg .candle-flame{fill:#d7e2dc}.tree-svg .candle-body{fill:#fbfcf8;stroke:#d6dfe0;stroke-width:1.4}.tree-svg .candle.lit .candle-flame{fill:#ffe090;filter:drop-shadow(0 0 6px #ffcf58)}.tree-svg .candle.lit .candle-body{fill:#fff3c8;stroke:#e3c774}.dialog #dialog-copy{white-space:pre-line}
+.item-icon svg{display:block;width:84px;height:84px;margin:0 auto;filter:drop-shadow(0 4px 4px #526d781c)}
+@media(max-width:700px){.tree-section{padding:6px 12px 19px}.tree-stage{width:min(100%,410px);height:440px}}
+@media(max-width:370px){.tree-stage{height:390px}}
+</style>
+</head>
+<body>
+<main class="page">
+  <header class="masthead">
+    <div class="stars" aria-hidden="true">✦　·　✧　·　✦</div>
+    <div class="eyebrow">A little winter journey · 2026</div>
+    <span class="decor left" aria-hidden="true">❄</span><span class="decor right" aria-hidden="true">✧</span>
+    <h1 class="title">给Olivia的专属圣诞日历</h1>
+    <p class="welcome"><em>Dear <span id="friend-name">Olivia</span></em>，今年冬天，请开启一场圣诞旅行。<br>从 11 月 25 日开始，每天打开一格，收下一点来自India的暖意。</p>
+    <div class="countdown" id="countdown" aria-live="polite"></div>
+  </header>
+  <div class="divider"></div>
+  <section class="journey" aria-label="冬日旅行日历">
+    <p class="hint" id="hint">每扇小门只在它的日子到来时开启，已经打开的礼物可以随时重看。</p>
+  </section>
+  <section class="tree-section" aria-label="每日点亮的圣诞树">
+    <h2 class="tree-heading">一棵慢慢亮起来的圣诞树</h2>
+    <p class="tree-caption" id="tree-caption" aria-live="polite"></p>
+    <div class="tree-stage">
+      <svg class="tree-svg" id="tree-svg" viewBox="0 0 420 490" role="img" aria-label="层层松枝装饰着银色花环、彩球和蜡烛，蜡烛会随日期逐日点亮">
+        <path d="M210 28 C199 55 179 76 151 98 C171 94 187 99 201 111 C176 130 150 151 118 177 C148 168 173 174 193 189 C157 215 126 240 84 272 C119 263 154 270 184 288 C142 321 100 350 50 382 C91 371 137 378 180 396 C135 428 88 456 26 474 C130 462 290 462 394 474 C332 456 285 428 240 396 C283 378 329 371 370 382 C320 350 278 321 236 288 C266 270 301 263 336 272 C294 240 263 215 227 189 C247 174 272 168 302 177 C270 151 244 130 219 111 C233 99 249 94 269 98 C241 76 221 55 210 28 Z" fill="#4e7964" stroke="#426c57" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M151 98 C176 97 196 110 210 130 C224 110 244 97 269 98 M118 177 C148 171 178 179 199 198 C222 179 252 171 302 177 M84 272 C120 265 156 275 187 297 C218 275 254 265 336 272 M50 382 C94 374 139 384 183 407 C226 384 271 374 370 382" fill="none" stroke="#86a98e" stroke-width="3" stroke-linecap="round" opacity=".75"/>
+        <path d="M167 108l-19 9m36-2-17 13m-32 58-23 6m43 2-24 16m-40 64-28 13m54-5-23 22m-41 67-33 13m72-4-31 22m171-364 19 9m-36-2 17 13m32 58 23 6m-43 2 24 16m40 64 28 13m-54-5 23 22m41 67 33 13m-72-4 31 22" fill="none" stroke="#a8c1a8" stroke-width="2" stroke-linecap="round" opacity=".8"/>
+        <path d="M188 425h44v50h-44z" fill="#98785d"/><path d="M195 427v46m12-46v46m12-46v46" stroke="#b39472" stroke-width="2" opacity=".7"/>
+        <path d="M151 139 C204 151 276 170 279 193 C282 217 139 238 131 263 C123 286 274 304 290 326 C306 349 134 368 129 392 C124 416 211 430 266 448" fill="none" stroke="#d5e1df" stroke-width="4" opacity=".95" stroke-linecap="round"/>
+        <path d="M151 139 C204 151 276 170 279 193 C282 217 139 238 131 263 C123 286 274 304 290 326 C306 349 134 368 129 392 C124 416 211 430 266 448" fill="none" stroke="#fff" stroke-width="1.1" opacity=".95" stroke-dasharray="1 11" stroke-linecap="round"/>
+        <g class="ornaments" stroke="#fff" stroke-opacity=".8" stroke-width="1.5">
+          <circle cx="186" cy="124" r="8" fill="#c7d7dc"/><circle cx="235" cy="149" r="6" fill="#c4a966"/><circle cx="143" cy="185" r="7" fill="#d8e4e5"/><circle cx="274" cy="204" r="9" fill="#b9cdd0"/>
+          <circle cx="206" cy="225" r="7" fill="#e0c47d"/><circle cx="119" cy="265" r="9" fill="#c8d8db"/><circle cx="306" cy="279" r="7" fill="#e3cf9a"/><circle cx="164" cy="303" r="8" fill="#bdced1"/>
+          <circle cx="255" cy="329" r="9" fill="#d8e1de"/><circle cx="91" cy="356" r="7" fill="#d6c17e"/><circle cx="329" cy="373" r="9" fill="#c8d8d7"/><circle cx="199" cy="387" r="8" fill="#d8c07d"/>
+        </g>
+        <g fill="#fff" opacity=".95"><circle cx="143" cy="120" r="2.2"/><circle cx="283" cy="142" r="2"/><circle cx="97" cy="221" r="2.3"/><circle cx="319" cy="237" r="2.4"/><circle cx="149" cy="346" r="2"/><circle cx="276" cy="394" r="2.2"/></g>
+      </svg>
+      <button class="tree-star" id="tree-star" type="button" aria-label="圣诞星星尚未解锁" aria-disabled="true" title="12月24日点亮圣诞星星"><span class="star-glyph" aria-hidden="true">☆</span></button>
+    </div>
+  </section>
+  <section class="calendar" id="calendar" aria-label="冬日旅行日历"></section>
+  <footer class="footer"><span class="foot-star">✧</span>愿这个冬天，有许多值得期待的小事<span class="foot-star">✧</span><br>银色星点也悄悄为你闪烁</footer>
+</main>
+<div class="veil" id="veil" role="presentation">
+  <section class="dialog" role="dialog" aria-modal="true" aria-labelledby="dialog-title" aria-describedby="dialog-copy">
+    <button class="close" id="close" type="button" aria-label="关闭礼物" title="关闭">×</button>
+    <div class="item-icon" id="dialog-icon" aria-hidden="true"></div>
+    <span class="stamp" id="dialog-country"></span>
+    <h2 id="dialog-title"></h2><div class="date" id="dialog-date"></div>
+    <p id="dialog-copy"></p><p class="blessing" id="dialog-blessing"></p>
+  </section>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+// 修改收礼人的名字，以及下面每天的小物件、地点和祝福。
+const FRIEND_NAME = "Olivia";
+const YEAR = 2026;
+// 测试时可在文件地址后加 ?preview=2026-11-25；正式使用时不加参数。
+const PREVIEW_PARAM = new URLSearchParams(window.location.search).get("preview");
+// 从 11 月 25 日开始，共 30 份日常礼物，加上圣诞特别篇。
+const GIFTS = [
+  {icon:"",art:"market-light",country:"德国 · 纽伦堡",item:"集市上的小灯",copy:"老城广场的冬日市集点亮了傍晚。小小的灯，也能把回家的路照得温柔。",wish:"愿你的冬天，从一束暖光开始。"},
+  {icon:"🍪",country:"德国 · 莱布尼茨",item:"姜饼香气",copy:"姜饼是冬日充饥和暖身的不二之选。愿这份甜香，陪你度过忙碌的一天。",wish:"今天也记得给自己留一口甜。"},
+  {icon:"",art:"nutcracker",country:"德国 · 木雕传统",item:"胡桃夹子",copy:"木制胡桃夹子一直是守护永恒的象征。愿它替你看守一点童心和好奇。",wish:"愿你总有让心情变轻的小事。"},
+  {icon:"",art:"crepe",country:"法国 · 布列塔尼",item:"热乎乎的可丽饼",copy:"可丽饼是布列塔尼的日常风味之一，街边现做时格外诱人。今天也给自己一点简单的满足吧。",wish:"愿温热的日常，好好接住你。"},
+  {icon:"🕯️",country:"法国 · 阿尔萨斯",item:"窗边的烛光",copy:"阿尔萨斯小镇的冬日街景常有精巧的窗饰与灯光。想象一扇亮着灯的窗，等你慢慢走近。",wish:"愿你总能找到安心停靠的地方。"},
+  {icon:"🧤",country:"挪威",item:"一副羊毛手套",copy:"北欧寒冷季节里，羊毛手套总是安心的依靠。愿这副想象中的手套，替你护住指尖的温度。",wish:"出门别忘了照顾好自己。"},
+  {icon:"🧶",country:"挪威 · 塞特斯达尔",item:"细密的针织花纹",copy:"挪威各地有与众不同的针织图案，正如你值得独一无二的祝福。针脚一圈圈连在一起，像有人在远处惦记你。",wish:"愿你被许多细小的心意围住。"},
+  {icon:"🏠",country:"挪威 · 冬日小屋",item:"亮着灯的小木屋",copy:"雪原里漫游，远处的暖光正是此心安处。今晚不必赶路，安心休息就好。",wish:"愿忙碌告一段落，今晚睡个好觉。"},
+  {icon:"🎼",country:"奥地利 · 维也纳",item:"咖啡馆里的一段音乐",copy:"街边的咖啡馆飘出贝多芬的旋律，总有一个坐下慢慢享用的理由。愿今天有一段属于你的慢时光。",wish:"不赶时间，也是一种很好的安排。"},
+  {icon:"☕",country:"奥地利 · 维也纳",item:"一杯温暖的咖啡",copy:"在维也纳，咖啡馆是坐下来读报、交谈、消磨时光的地方。给自己留个歇脚的空档吧。",wish:"愿你在自己的节奏里，喝口热的。"},
+  {icon:"",art:"panettone",country:"意大利 · 米兰",item:"一片潘娜托尼",copy:"这款发酵甜面包源于一次甜蜜的意外，却造就了一项圣诞的传统。分享一片，节日就近了一点。",wish:"愿好味道和好消息，都有人与你分享。"},
+  {icon:"🍊",country:"意大利 · 冬日餐桌",item:"一颗冬日柑橘",copy:"冬季柑橘给人们度过寒冬的勇气，让人想起橙花绽放的盛夏。剥开时清新的香气，像给房间打开一扇小窗。",wish:"愿今天也有清爽明亮的瞬间。"},
+  {icon:"🏮",country:"印度 · 果阿",item:"门边的纸花与星灯",copy:"在果阿的一些基督教社区，圣诞期间会装饰房屋与教堂。不同家庭有各自的庆祝方式，这盏星灯只代表其中一束节日光亮。",wish:"愿每种不同的喜悦，都被温柔相待。"},
+  {icon:"🧣",country:"印度 · 克什米尔",item:"柔软的羊绒披肩",copy:"克什米尔以精细的羊绒与披肩织造闻名。它讲究的纹理与暖意，像一句无需多说的关心。",wish:"愿你在冷风里，也有柔软的依靠。"},
+  {icon:"🥐",country:"法国 · 巴黎",item:"清晨的面包香",copy:"冬日早晨的面包店亮起灯，热气从纸袋里轻轻冒出。愿平常的一天，也有值得期待的开场。",wish:"今天从容一点，事情会一件件做好。"},
+  {icon:"⭐",country:"德国 · Advent 传统",item:"一颗小小的星星",copy:"降临节日历据传在德国发明，人们会按日开启小惊喜。今天这颗星星，替你点亮属于自己的倒数。",wish:"期待可以很轻，像星光一样就好。"},
+  {icon:"🧇",country:"挪威 · 家常点心",item:"刚烤好的华夫饼",copy:"热烫的华夫饼无需等待果酱就已足够完美。给自己一个放慢脚步的下午吧。",wish:"愿今天的休息没有负担。"},
+  {icon:"🎻",country:"奥地利 · 萨尔茨堡",item:"一段轻轻的旋律",copy:"萨尔茨堡冬日街巷很安静，但莫扎特的旋律早已刻在古老的石墙。愿你心里刚好响起一段喜欢的旋律。",wish:"愿美好的声音陪你走一小段路。"},
+  {icon:"🍫",country:"意大利 · 都灵",item:"一小块榛果巧克力",copy:"都灵有悠久的巧克力制作传统，榛果也是当地风味的熟悉搭档。今天这份甜意，请留给自己。",wish:"认真生活的人，也值得被奖励。"},
+  {icon:"🧵",country:"印度 · 克什米尔",item:"一段细致的织纹",copy:"克什米尔的手工织物有丰富的工艺与地方脉络，并不只为寒冬而生。每一道纹路，都藏着耐心与巧思。",wish:"愿你的用心，也被别人好好看见。"},
+  {icon:"",art:"ornament",country:"法国 · 冬日街角",item:"一枚玻璃树饰",copy:"各家树上的装饰都不一样，有些闪亮，有些朴素。愿你把喜欢的东西留在身边，不必和别人相同。",wish:"你自己的样子，已经很好。"},
+  {icon:"",art:"cider",country:"德国 · 苹果与香料",item:"热苹果香料饮",copy:"苹果与香料的暖饮适合寒冷的傍晚。让杯口的热气慢慢散开，也让心情有时间舒展。",wish:"先暖一暖，再处理剩下的事。"},
+  {icon:"🧦",country:"挪威 · 冬日家居",item:"厚厚的羊毛袜",copy:"换上干燥暖和的袜子，屋子就像更欢迎你一些。小小的舒服，也值得认真对待。",wish:"今晚就让自己过得舒服一点。"},
+  {icon:"🍵",country:"印度 · 克什米尔",item:"一杯香料暖茶",copy:"克什米尔地区有带香料的传统茶饮 kahwa，常以绿茶与香料调制；这是印度的一份冬日风味。",wish:"愿热茶的香气，给你片刻安稳。"},
+  {icon:"👣",country:"奥地利 · 阿尔卑斯山麓",item:"雪地上的轻快脚印",copy:"阿尔卑斯山麓的冬季景色随天气与海拔变化。无论窗外有没有雪，都祝你今天走得轻松。",wish:"一步一步来，就已经很好。"},
+  {icon:"🫖",country:"法国 · 家常时刻",item:"一壶茶与几分钟",copy:"不必等到特别的日子，烧一壶水、坐下来歇一会儿，也能为普通的下午留下一点温柔。",wish:"给自己几分钟，什么也不用完成。"},
+  {icon:"🧁",country:"意大利 · 节庆甜点",item:"糖霜点缀的小甜点",copy:"各地节庆甜点各有做法，家常版本最为可贵。愿你记得，最难忘的往往是一起分享的那一口。",wish:"愿桌边总有人，能和你聊聊今天。"},
+  {icon:"🥾",country:"德国 · 冬日散步",item:"雪后散步",copy:"假如今天下雪，就沿着街巷走一小段；如果没有雪，也可以在傍晚出去透透气。",wish:"愿新鲜空气带走一点疲惫。"},
+  {icon:"",art:"silver-gift",country:"挪威 · 心意小包裹",item:"系着银丝带的包裹",copy:"礼物不需要很大，有人记得你喜欢什么，就已经很珍贵。愿你喜欢这份祝福。",wish:"愿你收到的心意，都刚好合你心意。"},
+  {icon:"🔔",country:"德国 · 节日前夜",item:"一枚清脆的小铃铛",copy:"再过一天就是圣诞节。让这声铃响替今天收尾，也替即将到来的相聚打个招呼。",wish:"愿今晚平静，明天明亮。"},
+  {icon:"🎁",country:"圣诞特别篇 · 送给你",item:"圣诞快乐",copy:"谢谢你走完这段冬日小旅行。愿新的一年有好天气、好睡眠、好消息，也有很多自在做自己的日子。",wish:"圣诞快乐！很高兴这一年里有你。"}
+];
+
+const ICON_ART = {
+  "market-light": '<svg viewBox="0 0 100 100" role="img" aria-label="纽伦堡集市的街灯"><path d="M38 20c0-9 5-14 12-14s12 5 12 14M50 16v7" fill="none" stroke="#718991" stroke-width="4" stroke-linecap="round"/><path d="M28 27h44L64 17H36z" fill="#c4d4d7" stroke="#718991" stroke-width="3"/><path d="M33 29h34v48H33z" fill="#e9f4f2" stroke="#718991" stroke-width="3"/><path d="M40 33v40m20-40v40M32 43h36M32 66h36" stroke="#8da5aa" stroke-width="2.5"/><path d="M50 40c-10 10-7 23 0 25 7-2 10-15 0-25Z" fill="#f4c967"/><path d="M45 77h10v7H45zM37 85h26" fill="none" stroke="#718991" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="54" r="19" fill="#ffe7a6" opacity=".22"/></svg>',
+  nutcracker: '<svg viewBox="0 0 100 100" role="img" aria-label="胡桃夹子士兵木偶"><path d="M31 27 35 11h31l4 16H31Z" fill="#b94743" stroke="#765b50" stroke-width="3"/><path d="M26 28h48v8H26z" fill="#d3b36d" stroke="#765b50" stroke-width="3"/><circle cx="50" cy="48" r="20" fill="#f0d8bb" stroke="#765b50" stroke-width="3"/><path d="M31 44c7-8 31-8 38 0M30 49h40v9H30z" fill="#b94743" stroke="#765b50" stroke-width="3"/><circle cx="42" cy="47" r="2.5" fill="#37434a"/><circle cx="58" cy="47" r="2.5" fill="#37434a"/><path d="M38 57c7 7 17 7 24 0M37 62h26v7H37z" fill="#fff" stroke="#765b50" stroke-width="2.5"/><path d="M30 72h40l6 17H24z" fill="#496f78" stroke="#765b50" stroke-width="3"/><path d="M28 82h44M44 73v15M56 73v15" stroke="#d3b36d" stroke-width="3"/><path d="M25 90h18v5H22m35-5h18v5H54" fill="#554b48"/></svg>',
+  crepe: '<svg viewBox="0 0 100 100" role="img" aria-label="折叠的可丽饼"><ellipse cx="50" cy="78" rx="38" ry="10" fill="#dbe5e5"/><path d="M20 67 45 22c3-6 10-8 15-4l22 19-31 41Z" fill="#e8bb61" stroke="#b9823d" stroke-width="3" stroke-linejoin="round"/><path d="m45 22 15 15 22 0M45 22l6 56" fill="none" stroke="#f7d98d" stroke-width="3"/><path d="M46 29 36 48m18-9L42 59m25-18L53 64" stroke="#fff4d7" stroke-width="2" stroke-linecap="round"/><circle cx="43" cy="42" r="2" fill="#c98d42"/><circle cx="60" cy="50" r="2" fill="#c98d42"/><path d="M23 72c11 5 36 8 55 1" fill="none" stroke="#fff" stroke-width="2" opacity=".8"/></svg>',
+  panettone: '<svg viewBox="0 0 100 100" role="img" aria-label="意大利潘娜托尼甜面包"><path d="M23 38c0-16 12-27 27-27s27 11 27 27l7 48H16z" fill="#c58d4f" stroke="#94643d" stroke-width="3"/><path d="M25 40c7-8 14-4 20-9s13 1 19-5 11 1 13 7" fill="none" stroke="#f1cd83" stroke-width="5" stroke-linecap="round"/><path d="M20 49h60v36H20z" fill="#d5a25f" stroke="#94643d" stroke-width="3"/><path d="M29 52v30m12-30v31m12-31v31m12-31v31m12-31v30" stroke="#f1d197" stroke-width="2" opacity=".8"/><circle cx="39" cy="35" r="2" fill="#9c5a3e"/><circle cx="57" cy="31" r="2" fill="#9c5a3e"/><circle cx="68" cy="39" r="2" fill="#9c5a3e"/></svg>',
+  ornament: '<svg viewBox="0 0 100 100" role="img" aria-label="玻璃圣诞树挂饰"><path d="M43 18h14v13H43z" fill="#c8b170" stroke="#8d805f" stroke-width="2.5"/><path d="M50 18V9c0-5 8-5 8 0" fill="none" stroke="#9aabb0" stroke-width="3"/><circle cx="50" cy="57" r="29" fill="#d9e7e9" stroke="#91a8ae" stroke-width="3"/><path d="M30 65c13-15 26-16 40-3M36 77c10-6 19-7 29-3" fill="none" stroke="#fff" stroke-width="4" opacity=".9"/><path d="M38 40c4-7 10-11 17-12" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/><circle cx="63" cy="48" r="3" fill="#fff"/></svg>',
+  cider: '<svg viewBox="0 0 100 100" role="img" aria-label="热苹果香料饮"><path d="M27 38h43v47H27z" fill="#fff" stroke="#8ea4a8" stroke-width="3"/><path d="M70 48h9c12 0 12 20 0 20h-9" fill="none" stroke="#8ea4a8" stroke-width="5"/><path d="M30 54h37v28H30z" fill="#c47b3e"/><path d="M38 34c-7-9 6-10 0-19m16 19c-7-9 6-10 0-19" fill="none" stroke="#a9b8b8" stroke-width="3" stroke-linecap="round"/><path d="m48 52 17 27" stroke="#765b3e" stroke-width="5" stroke-linecap="round"/><circle cx="43" cy="68" r="8" fill="#eac879" stroke="#fff0c7" stroke-width="2"/><path d="M43 61v14m-7-7h14" stroke="#cb8e45" stroke-width="1.5"/><path d="M36 89h29" stroke="#8ea4a8" stroke-width="3" stroke-linecap="round"/></svg>',
+  "silver-gift": '<svg viewBox="0 0 100 100" role="img" aria-label="系着银色丝带的礼物盒"><path d="M19 39h62v47H19z" fill="#e5ecee" stroke="#97aab0" stroke-width="3"/><path d="M15 32h70v14H15z" fill="#f6f8f8" stroke="#97aab0" stroke-width="3"/><path d="M44 33h12v53H44z" fill="#b9c8cd"/><path d="M16 34h68v5H16z" fill="#fff" opacity=".9"/><path d="M50 33c-19-1-24-18-11-20 9-1 12 9 11 20Zm0 0c19-1 24-18 11-20-9-1-12 9-11 20Z" fill="#d5dfe2" stroke="#97aab0" stroke-width="2.5"/><circle cx="50" cy="34" r="5" fill="#b7c6cb" stroke="#879da4" stroke-width="2"/><path d="M27 54v23m45-23v23" stroke="#fff" stroke-width="2" opacity=".85"/></svg>'
+};
+
+document.getElementById("friend-name").textContent=FRIEND_NAME;
+const calendar=document.getElementById("calendar"),veil=document.getElementById("veil"),toast=document.getElementById("toast"),treeSvg=document.getElementById("tree-svg"),treeStar=document.getElementById("tree-star");
+const START=new Date(YEAR,10,25,0,0,0,0);
+const STAR_KEY=`olivia-christmas-star-${YEAR}`;
+let lastFocus=null,toastTimer,starLitThisSession=false;
+const dateFor=i=>new Date(YEAR,10,25+i,0,0,0,0);
+const dateText=d=>`${d.getMonth()+1}月${d.getDate()}日`;
+function localToday(){if(PREVIEW_PARAM){const m=PREVIEW_PARAM.match(/^(\d{4})-(\d{2})-(\d{2})$/);if(m){const d=new Date(Number(m[1]),Number(m[2])-1,Number(m[3]));if(d.getFullYear()===Number(m[1])&&d.getMonth()===Number(m[2])-1&&d.getDate()===Number(m[3]))return d}}const n=new Date();return new Date(n.getFullYear(),n.getMonth(),n.getDate(),0,0,0,0)}
+function getUnlocked(){const today=localToday();if(today<START)return -1;return Math.min(GIFTS.length-1,Math.floor((today-START)/86400000))}
+function updateCountdown(){const now=localToday(),gap=Math.ceil((START-now)/86400000),box=document.getElementById("countdown"),preview=PREVIEW_PARAM?`测试预览 · 模拟 ${now.getMonth()+1}/${now.getDate()}　|　`:"";if(gap>0){box.innerHTML=`${preview}距离第一份小惊喜还有 <strong>${gap}</strong> 天`}else if(gap===0){box.innerHTML=`${preview}今天开启旅程 <strong>✦</strong>`}else{const n=getUnlocked()+1;box.innerHTML=`${preview}冬日旅程已开启 <strong>${n} / ${GIFTS.length}</strong> 份小惊喜`}}
+function renderTree(){const unlocked=getUnlocked(),litCount=Math.max(0,Math.min(30,unlocked+1)),rows=[1,2,3,4,5,5,5,5],positions=[];rows.forEach((count,row)=>{for(let i=0;i<count;i++){const x=count===1?210:210+(i-(count-1)/2)*34;positions.push({x,y:91+row*40})}});treeSvg.querySelectorAll(".candle").forEach(node=>node.remove());positions.forEach((p,i)=>{const candle=document.createElementNS("http://www.w3.org/2000/svg","g");candle.setAttribute("class",`candle${i<litCount?" lit":""}`);candle.setAttribute("transform",`translate(${p.x} ${p.y})`);candle.setAttribute("aria-hidden","true");candle.innerHTML='<path class="candle-flame" d="M0 -9C-6 -2 -4 2 0 2 4 2 6 -2 0 -9Z"/><rect class="candle-body" x="-5" y="2" width="10" height="15" rx="2"/><path d="M-2 6v8" stroke="#fff" stroke-opacity=".65" stroke-width="1"/>';treeSvg.appendChild(candle)});let saved=false;try{saved=localStorage.getItem(STAR_KEY)==="true"}catch{}const isReady=unlocked>=29,wasLit=isReady&&(unlocked>29||saved||starLitThisSession);treeStar.classList.toggle("ready",isReady);treeStar.classList.toggle("lit",wasLit);treeStar.setAttribute("aria-disabled",String(!isReady));treeStar.setAttribute("aria-label",!isReady?"圣诞星星尚未解锁":wasLit?"圣诞星星已点亮，查看祝福":"点亮圣诞树顶的星星");treeStar.querySelector(".star-glyph").textContent=wasLit?"★":"☆";const caption=document.getElementById("tree-caption");if(litCount===0)caption.textContent="11月25日点亮第一支蜡烛";else if(litCount<30)caption.textContent=`已点亮 ${litCount} / 30 支蜡烛 · 每天多一束暖光`;else caption.textContent=wasLit?"30 / 30 支蜡烛与树顶星星都已点亮":"30 / 30 支蜡烛已点亮 · 点击树顶星星收下圣诞祝福"}
+function openGift(i,button){const g=GIFTS[i],d=dateFor(i),icon=document.getElementById("dialog-icon");lastFocus=button;if(g.art&&ICON_ART[g.art])icon.innerHTML=ICON_ART[g.art];else icon.textContent=g.icon;document.getElementById("dialog-country").textContent=g.country;document.getElementById("dialog-title").textContent=g.item;document.getElementById("dialog-date").textContent=`${dateText(d)} · 冬日小旅行`;document.getElementById("dialog-copy").textContent=g.copy;document.getElementById("dialog-blessing").textContent=g.wish;veil.classList.add("show");document.body.style.overflow="hidden";document.getElementById("close").focus()}
+function openStar(){if(getUnlocked()<29){say("12月24日，圣诞树顶的星星就会为你开启。");return}starLitThisSession=true;try{localStorage.setItem(STAR_KEY,"true")}catch{}renderTree();lastFocus=treeStar;document.getElementById("dialog-icon").textContent="★";document.getElementById("dialog-country").textContent="圣诞树顶 · 特别祝福";document.getElementById("dialog-title").textContent="Merry Christmas";document.getElementById("dialog-date").textContent="12月24日 · 为 Olivia 点亮";document.getElementById("dialog-copy").textContent="Merry Christmas, Olivia\n圣诞快乐，嘉愉，度过一个充满惊喜的2026圣诞";document.getElementById("dialog-blessing").textContent="";veil.classList.add("show");document.body.style.overflow="hidden";document.getElementById("close").focus()}
+function closeGift(){veil.classList.remove("show");document.body.style.overflow="";if(lastFocus)lastFocus.focus()}
+function say(message){toast.textContent=message;toast.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove("show"),2800)}
+function render(){calendar.replaceChildren();const max=getUnlocked();GIFTS.forEach((gift,i)=>{const d=dateFor(i),unlocked=i<=max,b=document.createElement("button");b.type="button";b.className="day"+(unlocked?" opened":" locked")+(i===GIFTS.length-1?" special":"");const label=`${dateText(d)}${i===GIFTS.length-1?"，圣诞特别惊喜":""}${unlocked?"，已开启，可重新查看":"，尚未解锁"}`;b.setAttribute("aria-label",label);b.setAttribute("aria-disabled",String(!unlocked));b.innerHTML=`<span class="number">${d.getMonth()+1}/${String(d.getDate()).padStart(2,"0")}</span><span class="mini" aria-hidden="true">${unlocked?"✧ 已开启":i===GIFTS.length-1?"圣诞惊喜":"❄ 等待中"}</span>`;if(unlocked)b.addEventListener("click",()=>openGift(i,b));else b.addEventListener("click",()=>say(`这份小惊喜会在 ${dateText(d)} 到来时开启，先把期待留给那一天吧。`));calendar.appendChild(b)});renderTree()}
+treeStar.addEventListener("click",openStar);
+document.getElementById("close").addEventListener("click",closeGift);veil.addEventListener("click",e=>{if(e.target===veil)closeGift()});document.addEventListener("keydown",e=>{if(!veil.classList.contains("show"))return;if(e.key==="Escape")closeGift();if(e.key==="Tab"){e.preventDefault();document.getElementById("close").focus()}});let renderedDate="";function refreshDate(){const d=localToday(),key=`${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;if(key!==renderedDate){renderedDate=key;updateCountdown();render()}}document.addEventListener("visibilitychange",()=>{if(!document.hidden)refreshDate()});
+updateCountdown();render();{const d=localToday();renderedDate=`${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`}setInterval(refreshDate,60000);
+</script>
+</body>
+</html>
